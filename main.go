@@ -70,6 +70,8 @@ func main() {
 		fmt.Fprintln(os.Stderr, "Sending output to Honeycomb")
 	} else if options.Output == "stdout" {
 		fmt.Fprintln(os.Stderr, "Sending output to STDOUT")
+	} else if options.Output == "jsonstdout" {
+		fmt.Fprintln(os.Stderr, "Sending JSON output to stdout")
 	} else {
 		// output flag is neither stdout nor honeycomb.  error and bail
 		log.Fatal("output target not recognized. use --help for usage info")
