@@ -11,13 +11,13 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Preetam/rdslogs/publisher"
 	"github.com/Sirupsen/logrus"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/rds"
 	"github.com/honeycombio/honeytail/parsers"
 	"github.com/honeycombio/honeytail/parsers/mysql"
 	"github.com/honeycombio/honeytail/parsers/postgresql"
-	"github.com/honeycombio/rdslogs/publisher"
 )
 
 // Fortunately for us, the RDS team has diligently ignored requests to make
@@ -101,6 +101,8 @@ func (c *CLI) Stream() error {
 	// create the chosen output publisher target
 	if c.Options.Output == "stdout" {
 		c.output = &publisher.STDOUTPublisher{}
+	} else if c.Options.Output == "jsonstdout" {
+		c.output = &publisher.JSONStdout{}
 	} else {
 		var parser parsers.Parser
 		if c.Options.DBType == DBTypeMySQL {
